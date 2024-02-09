@@ -13,13 +13,6 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-  topBar: {
-    flex: 0.3,
-    backgroundColor: "yellow",
-    fontSize: 18,
-    textAlign: "center",
-    paddingTop: 25,
-  },
   barImage: {
     height: 150,
     width: 350,

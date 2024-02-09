@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Switch, Button } from "react-native";
 import { useState } from "react";
 
-export default function Playtime({ navigation, route }) {
+export default function Playtime({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 

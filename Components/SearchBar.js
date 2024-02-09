@@ -1,5 +1,5 @@
 import { View, StyleSheet, TextInput } from "react-native";
-import { Feather, Entypo } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 export default function SearchBar() {
   return (
     <View style={styles.container}>
@@ -7,7 +7,7 @@ export default function SearchBar() {
         name="search"
         size={20}
         color="white"
-        style={{ position: "absolute", zIndex: 1, top: 10, left: 280 }}
+        style={{ position: "absolute", zIndex: 1, top: "15%", left: "75%" }}
       />
       <TextInput
         style={styles.inputBox}

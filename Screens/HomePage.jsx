@@ -5,22 +5,43 @@ import Header from "../Components/Header";
 import SearchBar from "../Components/SearchBar";
 
 export default function HomePage({ navigation }) {
-  const [apiResponse, setApiResponse] = useState("default text");
-  const executeSampleRow = async () => {
-    const pyRes = await fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/"
-    );
-    const drinkName = "martini";
-    console.log(drinkName);
-    return setApiResponse(drinkName);
+  const [apiResponse, setApiResponse] = useState({
+    name: "default text",
+    instructions: "default instructions",
+  });
+  const deployedUrl =
+    "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/";
+  const randomDrinkSorta = async () => {
+    const drinkName = "Amaretto Sunrise";
+    fetch(deployedUrl)
+      .then((res) => res.json())
+      .then((responseJSON) => {
+        console.log(responseJSON);
+        // setApiResponse({
+        //   name: responseJSON.name,
+        //   instructions: responseJSON.numberData,
+        //   picSrc: responseJSON.picSrc
+        // });
+        navigation.navigate("DrinkDetails", {
+          name: responseJSON.name,
+          instructions: responseJSON.instructions,
+          picSrc: responseJSON.picSrc,
+        });
+        console.log("end line");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    // return setApiResponse(drinkName);
   };
   return (
     <View style={styles.container}>
       <Header />
       <Button
         style={styles.button}
-        onPress={() => navigation.navigate("Playtime")}
-        title="Other page"
+        onPress={randomDrinkSorta}
+        title="Random Drink"
         color="green"
       />
       <SearchBar />
@@ -33,16 +54,6 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "start",
-  },
-  playTime: {
-    flex: 1,
-    backgroundColor: "powderblue",
-    color: "gray",
-    flexDirection: "column",
-    gap: 10,
-    justifyContent: "space-around",
-    height: "auto",
-    width: "90%",
   },
   button: {
     padding: 10,

@@ -1,7 +1,8 @@
 {
   "functions": {
     "targets": [
-      "zcqlSearchFunction"
+      "zcqlSearchFunction",
+      "testReturn"
     ],
     "ignore": [],
     "source": "functions"

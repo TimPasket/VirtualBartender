@@ -16,7 +16,7 @@
         "id": "10072083063",
         "name": "virtualbartender-842672486.development"
       },
-      "timezone": "America/Los_Angeles",
+      "timezone": "America/Chicago",
       "env": [
         {
           "idx": 1,
