@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "targets": [
+      "zcqlSearchFunction"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}
