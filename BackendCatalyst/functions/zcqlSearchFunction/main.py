@@ -3,27 +3,48 @@ from flask import Request, make_response, jsonify
 import zcatalyst_sdk
 from requests import get
 
+def ingredientParser(apiResponse): 
+    ingredientList = []
+    count = 1
+    while apiResponse['strIngredient'+str(count)] is not None:
+        ingredientList.append({apiResponse['strIngredient'+str(count)]: apiResponse['strMeasure'+str(count)]})
+        count +=1
+    return ingredientList
+
+
 def handler(request: Request):
     app = zcatalyst_sdk.initialize()
     search = app.zcql()
     datastore = app.datastore()
-    testTable = datastore.table(1922000000007048)
-    amarretoSunrise = testTable.get_row(1922000000011003)
-    # randomDrink = get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-    
-    # drinkName = randomDrink.json()['drinks'][0]['strDrink']
-    # drinkId = randomDrink.json()['drinks'][0]['idDrink']
-    # newDrink = {'name': drinkName, 'numberData': int(drinkId)}
-    # ifDataExists = search.execute_query('SELECT * FROM testTable')
+    function_service = app.functions()    
+    drinkTable = datastore.table('drinks')
+    randomDrink = get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    drinkData = randomDrink.json()['drinks'][0]
+    drinkName = drinkData['strDrink']
+    #'drinkInstructions':drinkData['strInstructions'], 'picSrc': drinkData['strDrinkThumb']
+    #'drinkInstructions':drinkData['strInstructions']
+    ifDataExists = search.execute_query('SELECT * FROM drinks WHERE drinkID = '+drinkData['idDrink'])
+    amarettoRose = search.execute_query('SELECT * FROM drinks WHERE drinkID = 11027')
     logger = logging.getLogger()
-    if request.path == "/":
-        # responseObject = randomDrink.json()
-        # responseObject['newData'] = testTable.insert_row(newDrink)
+    if request.path == "/" and ifDataExists is not None:
+        newDrink = {'name': drinkData['strDrink'], 'drinkID': drinkData['idDrink'],'instructions':drinkData['strInstructions'], 'picSrc': drinkData['strDrinkThumb'] }
+        newRow = drinkTable.insert_row(newDrink)
+        
         response = make_response(jsonify({
             'status': 'success',
-            'response': amarretoSunrise
+            'ifDataExists': ifDataExists is None,
+            'newRow': newRow
         }), 200)
-        return amarretoSunrise
+        return response
+    elif request.path == '/rose' and amarettoRose is not None:
+        functionResponse = ingredientParser(drinkData)
+        # ingredientParser = function_service.execute(1922000000021679, args)
+        response = make_response(jsonify({
+            'status': 'sucess',
+            'drink': amarettoRose,
+            'functionResponse': functionResponse
+        }), 200)
+        return response
     elif request.path == "/cache":
         default_segment = app.cache().segment()
 

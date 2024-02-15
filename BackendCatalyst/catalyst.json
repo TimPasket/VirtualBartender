@@ -1,9 +1,6 @@
 {
   "functions": {
-    "targets": [
-      "zcqlSearchFunction",
-      "testReturn"
-    ],
+    "targets": ["zcqlSearchFunction", "ingredientParser"],
     "ignore": [],
     "source": "functions"
   }

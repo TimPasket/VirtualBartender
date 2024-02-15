@@ -42,7 +42,10 @@ export default function App() {
         <Stack.Screen
           name="DrinkDetails"
           component={DrinkDetails}
-          options={({ route }) => ({ title: route.params.name })}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerStyle: { backgroundColor: "yellow" },
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

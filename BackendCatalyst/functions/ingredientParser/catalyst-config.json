@@ -1,11 +1,11 @@
 {
 	"deployment": {
-		"name": "testReturn",
+		"name": "ingredientParser",
 		"stack": "python_3_9",
 		"type": "advancedio",
 		"env_variables": {}
 	},
 	"execution": {
-		"main": "testReturn.py"
+		"main": "ingredientParser.py"
 	}
 }

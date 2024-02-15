@@ -1,43 +1,49 @@
-import { StyleSheet, Text, View, Switch, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Switch,
+  Button,
+  ActivityIndicator,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import Header from "../Components/Header";
 import SearchBar from "../Components/SearchBar";
 
 export default function HomePage({ navigation }) {
-  const [apiResponse, setApiResponse] = useState({
-    name: "default text",
-    instructions: "default instructions",
-  });
+  const [apiResponse, setApiResponse] = useState(false);
   const deployedUrl =
     "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/";
+  //
+  //begin backend call
   const randomDrinkSorta = async () => {
-    const drinkName = "Amaretto Sunrise";
+    setApiResponse(true);
     fetch(deployedUrl)
       .then((res) => res.json())
       .then((responseJSON) => {
         console.log(responseJSON);
-        // setApiResponse({
-        //   name: responseJSON.name,
-        //   instructions: responseJSON.numberData,
-        //   picSrc: responseJSON.picSrc
-        // });
         navigation.navigate("DrinkDetails", {
           name: responseJSON.name,
           instructions: responseJSON.instructions,
           picSrc: responseJSON.picSrc,
         });
+        setApiResponse(false);
         console.log("end line");
       })
       .catch((err) => {
         console.log(err.message);
       });
-
     // return setApiResponse(drinkName);
   };
   return (
     <View style={styles.container}>
       <Header />
+      <ActivityIndicator
+        style={styles.activity}
+        animating={apiResponse ? true : false}
+        size={"large"}
+      />
       <Button
         style={styles.button}
         onPress={randomDrinkSorta}
@@ -57,5 +63,10 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
+  },
+  activity: {
+    position: "absolute",
+    zIndex: 1,
+    top: "50%",
   },
 });
