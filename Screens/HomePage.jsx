@@ -14,7 +14,7 @@ import SearchBar from "../Components/SearchBar";
 export default function HomePage({ navigation }) {
   const [apiResponse, setApiResponse] = useState(false);
   const deployedUrl =
-    "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/";
+    "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/random";
   //
   //begin backend call
   const randomDrinkSorta = async () => {
@@ -24,9 +24,9 @@ export default function HomePage({ navigation }) {
       .then((responseJSON) => {
         console.log(responseJSON);
         navigation.navigate("DrinkDetails", {
-          name: responseJSON.name,
-          instructions: responseJSON.instructions,
-          picSrc: responseJSON.picSrc,
+          name: responseJSON.newRow.name,
+          instructions: responseJSON.newRow.instructions,
+          picSrc: responseJSON.newRow.picSrc,
         });
         setApiResponse(false);
         console.log("end line");

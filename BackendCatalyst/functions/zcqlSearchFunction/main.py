@@ -3,20 +3,45 @@ from flask import Request, make_response, jsonify
 import zcatalyst_sdk
 from requests import get
 
+
 def ingredientParser(apiResponse): 
-    ingredientList = []
     count = 1
+    ingredientList = []
+    measureList = []
     while apiResponse['strIngredient'+str(count)] is not None:
-        ingredientList.append({apiResponse['strIngredient'+str(count)]: apiResponse['strMeasure'+str(count)]})
+        ingredientList.append(apiResponse['strIngredient'+str(count)])
+        measureList.append(apiResponse['strMeasure'+str(count)])
         count +=1
-    return ingredientList
+    return {'ingredients': ingredientList, 'measures':measureList}
 
+def addNewIngredients(ingredientList, search, datastore):
+    ingredientRowIDs = []
+    print(ingredientList)
+    for ing in ingredientList['ingredients']:
+        ingredientResponse = search.execute_query(f'SELECT * FROM ingredients WHERE name=\'{ing}\'')
+        print(f'Ingredient response: {ingredientResponse}')
+        if len(ingredientResponse)==0:
+            print(f'res > 0')
+            newIngResponse =  datastore.table('ingredients').insert_row({"name":ing})
+            ingredientRowIDs.append(newIngResponse)
+        else: 
+            print(f'res NOT > 0')
+            ingredientRowIDs.append(ingredientResponse[0]['ingredients'])
+    print(ingredientRowIDs)
+    return {"ingredientRows":ingredientRowIDs, 'ingredientMeasures': ingredientList['measures']}
 
+def addToReferenceTable(drinkID, parsedIngredients, datastore):
+    referenceTable = datastore.table('drink_ingredients')
+    tableRows = [{'drinkID':drinkID, 'ingredientID':parsedIngredients['ingredientRows'][index]['ROWID'], 'measure':parsedIngredients['ingredientMeasures'][index]} for index in range(len(parsedIngredients['ingredientRows']))]
+    insertManyRes= referenceTable.insert_rows(tableRows)
+    return insertManyRes
+    
+    
 def handler(request: Request):
     app = zcatalyst_sdk.initialize()
     search = app.zcql()
     datastore = app.datastore()
-    function_service = app.functions()    
+    
     drinkTable = datastore.table('drinks')
     randomDrink = get('https://www.thecocktaildb.com/api/json/v1/1/random.php')
     drinkData = randomDrink.json()['drinks'][0]
@@ -26,23 +51,29 @@ def handler(request: Request):
     ifDataExists = search.execute_query('SELECT * FROM drinks WHERE drinkID = '+drinkData['idDrink'])
     amarettoRose = search.execute_query('SELECT * FROM drinks WHERE drinkID = 11027')
     logger = logging.getLogger()
-    if request.path == "/" and ifDataExists is not None:
+    
+    
+    if request.path == "/random" and len(ifDataExists) == 0:
         newDrink = {'name': drinkData['strDrink'], 'drinkID': drinkData['idDrink'],'instructions':drinkData['strInstructions'], 'picSrc': drinkData['strDrinkThumb'] }
         newRow = drinkTable.insert_row(newDrink)
+        parsedIngredients = ingredientParser(drinkData)
+        newIngredients = addNewIngredients(parsedIngredients, search, datastore)
+        addedToReferenceTable = addToReferenceTable(newRow['ROWID'], newIngredients, datastore)
         
         response = make_response(jsonify({
             'status': 'success',
-            'ifDataExists': ifDataExists is None,
-            'newRow': newRow
+            'ifDataExists': ifDataExists,
+            'newRow': newRow,
+            'ingredientStuff': newIngredients,
+            'addedToReferenceTable':addedToReferenceTable,
         }), 200)
         return response
-    elif request.path == '/rose' and amarettoRose is not None:
-        functionResponse = ingredientParser(drinkData)
+    elif request.path == '/random' and len(ifDataExists) != 0:
         # ingredientParser = function_service.execute(1922000000021679, args)
         response = make_response(jsonify({
             'status': 'sucess',
-            'drink': amarettoRose,
-            'functionResponse': functionResponse
+            'drink': ifDataExists,
+            # 'ingredientParser': ingredientParser,
         }), 200)
         return response
     elif request.path == "/cache":
