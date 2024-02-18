@@ -1,6 +1,7 @@
 import logging
 import zcatalyst_sdk
 import json
+from requests import get
 
 def addNewIngredients(ingredientList, search, datastore):
     ingredientRowIDs = []
