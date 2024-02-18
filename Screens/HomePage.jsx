@@ -16,17 +16,21 @@ export default function HomePage({ navigation }) {
   const deployedUrl =
     "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/random";
   //
+  const simpleRes =
+    "https://virtualbartender-842672486.development.catalystserverless.com/server/cocktailDBResponse/";
+  //
+
   //begin backend call
   const randomDrinkSorta = async () => {
     setApiResponse(true);
-    fetch(deployedUrl)
+    fetch(simpleRes)
       .then((res) => res.json())
       .then((responseJSON) => {
         console.log(responseJSON);
         navigation.navigate("DrinkDetails", {
-          name: responseJSON.newRow.name,
-          instructions: responseJSON.newRow.instructions,
-          picSrc: responseJSON.newRow.picSrc,
+          name: responseJSON.drink.name,
+          instructions: responseJSON.drink.instructions,
+          picSrc: responseJSON.drink.picSrc,
         });
         setApiResponse(false);
         console.log("end line");

@@ -1,7 +1,9 @@
 {
   "functions": {
     "targets": [
-      "zcqlSearchFunction"
+      "zcqlSearchFunction",
+      "cocktailDBResponse",
+      "addDataToDB"
     ],
     "ignore": [],
     "source": "functions"

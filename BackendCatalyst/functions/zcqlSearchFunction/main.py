@@ -64,7 +64,7 @@ def handler(request: Request):
             'status': 'success',
             'ifDataExists': ifDataExists,
             'newRow': newRow,
-            'ingredientStuff': newIngredients,
+            'ingredients': parsedIngredients,
             'addedToReferenceTable':addedToReferenceTable,
         }), 200)
         return response
