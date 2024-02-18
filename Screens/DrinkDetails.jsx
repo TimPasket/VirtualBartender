@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Button, Image, FlatList } from "react-native";
 
 export default function DrinkDetails({ navigation, route }) {
   const args = route.params;
@@ -12,6 +12,11 @@ export default function DrinkDetails({ navigation, route }) {
           navigation.setOptions({ title: "better?" });
         }}
       />
+      <View>
+        <Text>
+          {args.ingredients}: {args.measures}
+        </Text>
+      </View>
     </View>
   );
 }

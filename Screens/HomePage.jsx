@@ -31,6 +31,8 @@ export default function HomePage({ navigation }) {
           name: responseJSON.drink.name,
           instructions: responseJSON.drink.instructions,
           picSrc: responseJSON.drink.picSrc,
+          ingredients: responseJSON.drink.ingredientStuff.ingredients,
+          measures: responseJSON.drink.ingredientStuff.measures,
         });
         setApiResponse(false);
         console.log("end line");
