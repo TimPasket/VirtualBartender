@@ -7,11 +7,13 @@ def ingredientParser(apiResponse):
     count = 1
     ingredientList = []
     measureList = []
+    ingredientObject= []
     while apiResponse['strIngredient'+str(count)] is not None:
+        ingredientObject.append({'ingredientName': apiResponse['strIngredient'+str(count)], 'ingredientMeasure':apiResponse['strMeasure'+str(count)] })
         ingredientList.append(apiResponse['strIngredient'+str(count)])
         measureList.append(apiResponse['strMeasure'+str(count)])
         count +=1
-    return {'ingredients': ingredientList, 'measures':measureList}
+    return ingredientObject
 
 
 def handler(request: Request):
