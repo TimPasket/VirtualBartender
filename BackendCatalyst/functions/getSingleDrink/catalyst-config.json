@@ -1,0 +1,13 @@
+{
+	"deployment": {
+		"name": "getSingleDrink",
+		"stack": "python_3_9",
+		"type": "advancedio",
+		"env_variables": {
+			"ZOHO_CATALYST_ZCQL_PARSER": "V2"
+		}
+	},
+	"execution": {
+		"main": "getSingle.Drink.py"
+	}
+}

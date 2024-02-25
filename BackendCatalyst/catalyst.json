@@ -4,7 +4,8 @@
       "zcqlSearchFunction",
       "cocktailDBResponse",
       "addDataToDB",
-      "getAllDrinks"
+      "getAllDrinks",
+      "getSingleDrink"
     ],
     "ignore": [],
     "source": "functions"

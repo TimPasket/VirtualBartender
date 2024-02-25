@@ -44,7 +44,7 @@ export default function App() {
           name="DrinkDetails"
           component={DrinkDetails}
           options={({ route }) => ({
-            title: route.params.name,
+            title: route.params.drinkName,
             headerStyle: { backgroundColor: "yellow" },
           })}
         />

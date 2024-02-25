@@ -13,22 +13,19 @@ import SearchBar from "../Components/SearchBar";
 
 export default function HomePage({ navigation }) {
   const [apiResponse, setApiResponse] = useState(false);
-  const deployedUrl =
-    "https://virtualbartender-842672486.development.catalystserverless.com/server/zcqlSearchFunction/random";
-  //
   const simpleRes =
     "https://virtualbartender-842672486.development.catalystserverless.com/server/cocktailDBResponse/";
   //
 
   //begin backend call
-  const randomDrinkSorta = async () => {
+  const randomDrinkSorta = () => {
     setApiResponse(true);
     fetch(simpleRes)
       .then((res) => res.json())
       .then((responseJSON) => {
         console.log(responseJSON);
         navigation.navigate("DrinkDetails", {
-          name: responseJSON.drink.name,
+          drinkName: responseJSON.drink.name,
           instructions: responseJSON.drink.instructions,
           picSrc: responseJSON.drink.picSrc,
           ingredientStuff: responseJSON.drink.ingredientStuff,
