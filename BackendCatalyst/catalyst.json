@@ -3,7 +3,8 @@
     "targets": [
       "zcqlSearchFunction",
       "cocktailDBResponse",
-      "addDataToDB"
+      "addDataToDB",
+      "getAllDrinks"
     ],
     "ignore": [],
     "source": "functions"

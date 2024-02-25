@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Image, FlatList } from "react-native";
+import { StyleSheet, Text, View, Button, Image } from "react-native";
 
 export default function DrinkDetails({ navigation, route }) {
   const args = route.params;

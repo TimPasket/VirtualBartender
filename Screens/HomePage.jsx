@@ -41,6 +41,9 @@ export default function HomePage({ navigation }) {
       });
     // return setApiResponse(drinkName);
   };
+  const allDrinks = () => {
+    navigation.navigate("AllDrinks");
+  };
   return (
     <View style={styles.container}>
       <Header />
@@ -56,6 +59,7 @@ export default function HomePage({ navigation }) {
         color="green"
       />
       <SearchBar />
+      <Button onPress={allDrinks} title="See All Drinks" color="#FAFFD8" />
     </View>
   );
 }

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomePage from "./Screens/HomePage";
 import Playtime from "./Screens/Playtime";
 import DrinkDetails from "./Screens/DrinkDetails";
+import AllDrinks from "./Screens/AllDrinks";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -44,6 +45,14 @@ export default function App() {
           component={DrinkDetails}
           options={({ route }) => ({
             title: route.params.name,
+            headerStyle: { backgroundColor: "yellow" },
+          })}
+        />
+        <Stack.Screen
+          name="AllDrinks"
+          component={AllDrinks}
+          options={({ route }) => ({
+            title: "All Drinks",
             headerStyle: { backgroundColor: "yellow" },
           })}
         />
