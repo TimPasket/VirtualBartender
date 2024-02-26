@@ -43,7 +43,7 @@ def handler(request: Request):
             ingredientDetails = ingredientParser(drink)
             drinkDetails = {'name': drink['strDrink'], 'instructions': drink['strInstructions'], 'picSrc': drink['strDrinkThumb'], 'ingredientStuff': ingredientDetails, 'drinkID': drink['idDrink']}
             drinkSegment = app.cache().segment(1922000000017975)
-            insert_resp = drinkSegment.put('randomDrink', drinkDetails,1)
+            insert_resp = drinkSegment.put('Drink', drinkDetails,1)
             responseList.append(drinkDetails)
         response = make_response(jsonify({
             "status": "success",

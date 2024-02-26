@@ -7,6 +7,7 @@ import {
   Button,
   FlatList,
   Pressable,
+  Alert,
 } from "react-native";
 import { Suspense, useEffect, useState } from "react";
 export default function AllDrinks({ navigation }) {
@@ -44,9 +45,24 @@ export default function AllDrinks({ navigation }) {
   };
   // const allDrinkData = async () => await getAllDrinks();
   // console.log(`this is the data ${allDrinkData}`);
-  const DrinkItem = ({ ROWID, picSrc }) => {
+  /*Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]); */
+  const DrinkItem = ({ drinkName, instructions, ROWID, picSrc }) => {
     return (
-      <Pressable onPress={() => drinkPress(ROWID)}>
+      <Pressable
+        onLongPress={() =>
+          Alert.alert(drinkName, instructions, [{ text: "okie" }], {
+            cancelable: true,
+          })
+        }
+        onPress={() => drinkPress(ROWID)}
+      >
         <Image style={styles.drinkImage} source={{ uri: picSrc }} />
       </Pressable>
     );
@@ -65,6 +81,8 @@ export default function AllDrinks({ navigation }) {
             data={drinkData}
             renderItem={({ item }) => (
               <DrinkItem
+                drinkName={item.drinks.name}
+                instructions={item.drinks.instructions}
                 ROWID={item.drinks.ROWID}
                 picSrc={item.drinks.picSrc}
               />
@@ -87,8 +105,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#333333",
   },
   drinkImage: {
-    height: 125,
-    width: 125,
+    height: 115,
+    width: 115,
     // margin: 5,
     borderColor: "#5E5E5E",
     borderWidth: 2,
