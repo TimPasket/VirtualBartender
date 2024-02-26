@@ -51,15 +51,15 @@ export default function AllDrinks({ navigation }) {
       </Pressable>
     );
   };
+
   return (
     <>
-      <View>
+      <View style={styles.container}>
         <ActivityIndicator
           style={{ position: "absolute", zIndex: 1, top: "50%", left: "50%" }}
           animating={drinkLoading ? true : false}
           size={"large"}
         />
-        <Text>Beginning of Flatlist</Text>
         {drinkData.length ? (
           <FlatList
             data={drinkData}
@@ -71,7 +71,7 @@ export default function AllDrinks({ navigation }) {
             )}
             keyExtractor={(drink_item) => drink_item.drinks.ROWID}
             numColumns={3}
-            initialNumToRender={36}
+            initialNumToRender={30}
           />
         ) : (
           <Text>List pretyy empty</Text>
@@ -82,9 +82,16 @@ export default function AllDrinks({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 10,
+    backgroundColor: "#333333",
+  },
   drinkImage: {
-    height: 115,
-    width: 115,
-    margin: 5,
+    height: 125,
+    width: 125,
+    // margin: 5,
+    borderColor: "#5E5E5E",
+    borderWidth: 2,
+    borderRadius: 25,
   },
 });

@@ -3,7 +3,6 @@ import { useState } from "react";
 
 export default function Playtime({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   return (
     <View style={styles.playTime}>

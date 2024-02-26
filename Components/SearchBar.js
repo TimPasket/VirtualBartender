@@ -1,6 +1,10 @@
 import { View, StyleSheet, TextInput } from "react-native";
 import { Feather } from "@expo/vector-icons";
-export default function SearchBar() {
+export default function SearchBar({ navigate }) {
+  const submitHandler = (searchText) => {
+    navigate.navigate("SearchResults", { searchQuery: searchText });
+  };
+
   return (
     <View style={styles.container}>
       <Feather
@@ -8,12 +12,6 @@ export default function SearchBar() {
         size={20}
         color="white"
         style={{ position: "absolute", zIndex: 1, top: "15%", left: "75%" }}
-      />
-      <TextInput
-        style={styles.inputBox}
-        placeholder="Search drink in this input"
-        enterKeyHint="search"
-        returnKeyType="search"
       />
     </View>
   );

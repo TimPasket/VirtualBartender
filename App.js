@@ -4,6 +4,7 @@ import HomePage from "./Screens/HomePage";
 import Playtime from "./Screens/Playtime";
 import DrinkDetails from "./Screens/DrinkDetails";
 import AllDrinks from "./Screens/AllDrinks";
+import SearchResults from "./Screens/SearchResults";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -26,19 +27,15 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="Playtime"
-          component={Playtime}
-          options={{
-            title: "Playtime",
+          name="SearchResults"
+          component={SearchResults}
+          options={({ route }) => ({
+            title: `Searching for ${route.params.searchText}`,
             headerStyle: {
               backgroundColor: "yellow",
             },
-            headerTintColor: "#000",
-            headerTitleStyle: {
-              fontWeight: "bold",
-            },
             headerTitleAlign: "center",
-          }}
+          })}
         />
         <Stack.Screen
           name="DrinkDetails"

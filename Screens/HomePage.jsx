@@ -4,6 +4,7 @@ import {
   View,
   Switch,
   Button,
+  TextInput,
   ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -13,14 +14,17 @@ import SearchBar from "../Components/SearchBar";
 
 export default function HomePage({ navigation }) {
   const [apiResponse, setApiResponse] = useState(false);
-  const simpleRes =
-    "https://virtualbartender-842672486.development.catalystserverless.com/server/cocktailDBResponse/";
+  const [searchToggle, setSearchToggle] = useState(false);
+  const toggleSwitch = () => setSearchToggle((previousState) => !previousState);
+
+  const randomRes =
+    "https://virtualbartender-842672486.development.catalystserverless.com/server/cocktailDBResponse/random";
   //
 
   //begin backend call
-  const randomDrinkSorta = () => {
+  const randomDrink = () => {
     setApiResponse(true);
-    fetch(simpleRes)
+    fetch(randomRes)
       .then((res) => res.json())
       .then((responseJSON) => {
         console.log(responseJSON);
@@ -41,6 +45,13 @@ export default function HomePage({ navigation }) {
   const allDrinks = () => {
     navigation.navigate("AllDrinks");
   };
+  const submitHandler = (input, toggleValue) => {
+    console.log(input);
+    navigation.navigate("SearchResults", {
+      searchText: input,
+      toggleValue: toggleValue,
+    });
+  };
   return (
     <View style={styles.container}>
       <Header />
@@ -51,11 +62,30 @@ export default function HomePage({ navigation }) {
       />
       <Button
         style={styles.button}
-        onPress={randomDrinkSorta}
+        onPress={randomDrink}
         title="Random Drink"
         color="green"
       />
-      <SearchBar />
+      <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={searchToggle ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={searchToggle}
+      />
+      <TextInput
+        style={styles.inputBox}
+        placeholder={
+          searchToggle
+            ? "Searching Drinks by Ingredient Name"
+            : "Searching by Drink Name"
+        }
+        enterKeyHint="search"
+        returnKeyType="search"
+        onSubmitEditing={(input) =>
+          submitHandler(input.nativeEvent.text, searchToggle)
+        }
+      />
       <Button onPress={allDrinks} title="See All Drinks" color="#FAFFD8" />
     </View>
   );
@@ -63,7 +93,7 @@ export default function HomePage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#333333",
     alignItems: "center",
     justifyContent: "start",
   },
@@ -74,5 +104,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     top: "50%",
+  },
+  inputBox: {
+    width: "75%",
+    padding: 5,
+    paddingStart: 10,
+    borderWidth: 2,
+    borderRadius: 25,
+    borderColor: "gray",
+    backgroundColor: "white",
+    color: "black",
   },
 });
