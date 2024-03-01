@@ -9,7 +9,7 @@ def addNewIngredients(ingredientList, search, datastore):
     print(f'inputArg - {ingredientList}')
     for ing in ingredientList:
         measureList.append(ing['ingredientMeasure'])
-        ingredientResponse = search.execute_query(f'SELECT * FROM ingredients WHERE name=\"{ing["ingredientName"]}\"')
+        ingredientResponse = search.execute_query(f"SELECT * FROM ingredients WHERE name=\'{ing['ingredientName']}\'")
         print(f'Ingredient response: {ingredientResponse}')
         if len(ingredientResponse)==0:
             print(f'res NOT > 0')
@@ -33,7 +33,7 @@ def handler(event, context):
     search = app.zcql()
     cacheValue = event.get_data()['cache_value']
     drinkDetails = json.loads(cacheValue)
-    ifDrinkExists = search.execute_query(f'SELECT * FROM drinks WHERE drinkID = \"{drinkDetails["drinkID"]}\"')
+    ifDrinkExists = search.execute_query(f"SELECT * FROM drinks WHERE drinkID = \'{drinkDetails['drinkID']}\'")
     if len(ifDrinkExists) == 0:
         localSearch = search
         datastore = app.datastore()

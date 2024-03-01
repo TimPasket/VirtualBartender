@@ -13,8 +13,9 @@ def reformatResponse(dataResponse):
 def handler(request: Request):
     app = zcatalyst_sdk.initialize()
     search = app.zcql()
+    print(request.args.get("ID"))
     drinkData = search.execute_query('SELECT d.*, i.name, di.measure FROM drinks d INNER JOIN drink_ingredients di ON d.ROWID = di.drinkID INNER JOIN ingredients i ON di.ingredientID = i.ROWID WHERE d.ROWID = '+request.args.get("ID"))
-    
+    print(drinkData)
     if request.path == "/" and len(drinkData) > 0:
         responseData = reformatResponse(drinkData)
         response = make_response(jsonify({
@@ -23,6 +24,9 @@ def handler(request: Request):
         }), 200)
         return response
     else:
-        response = make_response('Drink does not exist')
+        response = make_response(jsonify({
+            'status': "Error: 404 Not Found",
+            'message': "Query returned empty list"
+            }), 404)
         response.status_code = 404
         return response

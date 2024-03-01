@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomePage from "./Screens/HomePage";
 import Playtime from "./Screens/Playtime";
 import DrinkDetails from "./Screens/DrinkDetails";
@@ -7,10 +8,11 @@ import AllDrinks from "./Screens/AllDrinks";
 import SearchResults from "./Screens/SearchResults";
 
 export default function App() {
+  const Tab = createBottomTabNavigator();
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      {/* <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
           component={HomePage}
@@ -53,7 +55,24 @@ export default function App() {
             headerStyle: { backgroundColor: "yellow" },
           })}
         />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+      <Tab.Navigator
+        screenOptions={{
+          headerTitleAlign: "center",
+          headerStyle: { backgroundColor: "yellow" },
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomePage}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="AllDrinks"
+          component={AllDrinks}
+          options={{ title: "All Drinks", headerShown: false }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

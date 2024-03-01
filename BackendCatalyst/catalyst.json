@@ -1,11 +1,11 @@
 {
   "functions": {
     "targets": [
-      "zcqlSearchFunction",
       "cocktailDBResponse",
       "addDataToDB",
       "getAllDrinks",
-      "getSingleDrink"
+      "getSingleDrink",
+      "HomePage"
     ],
     "ignore": [],
     "source": "functions"

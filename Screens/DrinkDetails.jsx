@@ -1,11 +1,25 @@
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  ScrollView,
+} from "react-native";
 
 export default function DrinkDetails({ navigation, route }) {
   const args = route.params;
+  // navigation.getParent("AllDrinks").setOptions({ headerShown: false });
+  // navigation.getParent() === "AllDrinksReport"
+  //   ? navigation.get("AllDrinksReport").setOptions({ headerShown: false })
+  //   : console.log("On home parent");
   const ingredients = args.ingredientStuff.map((block) => (
     <View style={styles.ingredientContainer}>
       <Text style={styles.ingredientText}>{block.ingredientName} -</Text>
-      <Text style={styles.ingredientText}> {block.ingredientMeasure}</Text>
+      <Text style={styles.ingredientText}>
+        {" "}
+        {block.ingredientMeasure ? block.ingredientMeasure : "See Instructions"}
+      </Text>
     </View>
   ));
   // const measures = args.ingredientStuff.measures.map((block) => (
@@ -14,8 +28,10 @@ export default function DrinkDetails({ navigation, route }) {
   return (
     <View style={styles.detailsContainer}>
       <Image style={styles.drinkPic} source={{ uri: args.picSrc }}></Image>
-      <Text style={styles.instructions}>{args.instructions}</Text>
-      <View style={styles.ingredients}>{ingredients}</View>
+      <ScrollView>
+        <Text style={styles.instructions}>{args.instructions}</Text>
+        <View style={styles.ingredients}>{ingredients}</View>
+      </ScrollView>
     </View>
   );
 }
@@ -28,7 +44,7 @@ const styles = StyleSheet.create({
   drinkPic: {
     height: 250,
     width: 350,
-    aspectRatio: 7 / 8,
+    aspectRatio: 1 / 1,
   },
   instructions: {
     padding: 20,
