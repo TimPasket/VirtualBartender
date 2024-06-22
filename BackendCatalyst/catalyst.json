@@ -5,9 +5,14 @@
       "addDataToDB",
       "getAllDrinks",
       "getSingleDrink",
-      "HomePage"
+      "HomePage",
+      "loginUser",
+      "addUser"
     ],
     "ignore": [],
     "source": "functions"
+  },
+  "client": {
+    "source": "client"
   }
 }

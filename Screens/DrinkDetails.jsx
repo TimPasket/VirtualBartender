@@ -2,13 +2,19 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   ScrollView,
+  Pressable,
 } from "react-native";
-
+import { FontAwesome } from "@expo/vector-icons";
+import { useState } from "react";
 export default function DrinkDetails({ navigation, route }) {
+  const [drinkFavorited, setDrinkFavorited] = useState(false);
+  const [instructionsExpanded, setInstructionsExpanded] = useState(false);
+  const toggleInstructions = () =>
+    setInstructionsExpanded((previousState) => !previousState);
   const args = route.params;
+  // navigation.setOptions({ title: args.drinkName });
   // navigation.getParent("AllDrinks").setOptions({ headerShown: false });
   // navigation.getParent() === "AllDrinksReport"
   //   ? navigation.get("AllDrinksReport").setOptions({ headerShown: false })
@@ -28,8 +34,30 @@ export default function DrinkDetails({ navigation, route }) {
   return (
     <View style={styles.detailsContainer}>
       <Image style={styles.drinkPic} source={{ uri: args.picSrc }}></Image>
-      <ScrollView>
-        <Text style={styles.instructions}>{args.instructions}</Text>
+      <View style={styles.icons}>
+        <FontAwesome
+          name={drinkFavorited ? "heart" : "heart-o"}
+          color={drinkFavorited ? "red" : "white"}
+          size={25}
+        />
+        <Pressable onPress={() => toggleInstructions()}>
+          <FontAwesome
+            name={instructionsExpanded ? "angle-down" : "angle-left"}
+            color={"white"}
+            size={30}
+          />
+        </Pressable>
+      </View>
+      <ScrollView style={styles.scrollView}>
+        <Text
+          style={
+            instructionsExpanded
+              ? styles.instructionsExpanded
+              : styles.instructionsCollapsed
+          }
+        >
+          {args.instructions}
+        </Text>
         <View style={styles.ingredients}>{ingredients}</View>
       </ScrollView>
     </View>
@@ -42,13 +70,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#333333",
   },
   drinkPic: {
-    height: 250,
-    width: 350,
+    height: "30%",
     aspectRatio: 1 / 1,
   },
-  instructions: {
+  icons: {
+    width: "85%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 20,
+  },
+  instructionsCollapsed: {
+    maxHeight: "40%",
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 10,
+    fontSize: 15,
+    color: "#fff",
+    fontWeight: "500",
+  },
+  instructionsExpanded: {
+    padding: 20,
+    paddingTop: 10,
     fontSize: 15,
     color: "#fff",
     fontWeight: "500",
@@ -57,7 +100,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   ingredients: {
-    width: "80%",
     alignItems: "center",
     marginTop: 50,
     gap: 10,

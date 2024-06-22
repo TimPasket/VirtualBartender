@@ -60,7 +60,7 @@ export default function SearchResults({ navigation, route }) {
       navigation.navigate("Home", {
         screen: "DrinkDetails",
         params: {
-          drinkName: res.data.name,
+          drinkName: res.data.drinkName,
           picSrc: res.data.picSrc,
           instructions: res.data.instructions,
           ingredientStuff: res.data.ingredientStuff,

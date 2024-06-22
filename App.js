@@ -6,6 +6,7 @@ import Playtime from "./Screens/Playtime";
 import DrinkDetails from "./Screens/DrinkDetails";
 import AllDrinks from "./Screens/AllDrinks";
 import SearchResults from "./Screens/SearchResults";
+import Profile from "./Screens/Profile";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -72,6 +73,7 @@ export default function App() {
           component={AllDrinks}
           options={{ title: "All Drinks", headerShown: false }}
         />
+        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

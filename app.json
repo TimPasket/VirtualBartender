@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/iconCropped.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.timpasket.VirtualBartender"
     },
     "web": {
       "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fd15fee0-c5d2-4cf4-8e00-84721195c835"
+      }
     }
   }
 }

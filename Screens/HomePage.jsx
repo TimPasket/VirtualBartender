@@ -18,6 +18,7 @@ import SearchBar from "../Components/SearchBar";
 export default function HomePage({ navigation, route }) {
   const [apiResponse, setApiResponse] = useState(false);
   const [searchToggle, setSearchToggle] = useState(false);
+  const [favoritesLoaded, setFavoritesLoaded] = useState([]);
   const toggleSwitch = () => setSearchToggle((previousState) => !previousState);
 
   //begin backend call
@@ -97,7 +98,9 @@ export default function HomePage({ navigation, route }) {
             }
           />
         </View>
-        <Button onPress={allDrinks} title="See All Drinks" color="#000" />
+        {/* <View>
+          <Text>Favorites:</Text>
+        </View> */}
       </View>
     );
   }
