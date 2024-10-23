@@ -1,0 +1,8 @@
+{
+  "command": "python3 -u router.py",
+  "build_path": "/home/tim_pasket/VsCode/VirtualBartender/VirtualBartender/BackendCatalyst/api",
+  "stack": "python_3_9",
+  "env_variables": {},
+  "memory": 256,
+  "scripts": {}
+}

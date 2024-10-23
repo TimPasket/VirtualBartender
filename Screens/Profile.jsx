@@ -12,19 +12,18 @@ export default function Profile() {
       pwd
     );
     const usr = {
-      email: email,
-      hashPwd: digest,
-      userID: 1253,
+      email: "Nope@gmail.com",
+      hashPwd: "a98ec5c5044800c88e862f007b98d89815fc40ca155d6ce790",
     };
     console.log(usr);
-    fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/addUser?usr=" +
+    console.log("-----------------");
+    jsonRes = await fetch(
+      "https://virtualbartender-842672486.development.catalystserverless.com/server/addUser/login?usr=" +
         JSON.stringify(usr)
-    )
-      .then((res) => res.json())
-      .then((responseJSON) => {
-        console.log(responseJSON);
-      });
+    );
+    res = await jsonRes.json();
+    response = await res;
+    console.log(response);
   };
 
   return (

@@ -14,5 +14,11 @@
   },
   "client": {
     "source": "client"
-  }
+  },
+  "appsail": [
+    {
+      "source": "/home/tim_pasket/VsCode/VirtualBartender/VirtualBartender/BackendCatalyst",
+      "name": "VirtualBartenderAPI"
+    }
+  ]
 }
