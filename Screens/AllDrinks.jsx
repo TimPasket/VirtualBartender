@@ -22,7 +22,7 @@ export default function AllDrinks({ navigation }) {
   const getAllDrinks = async () => {
     let res;
     res = await fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/getAllDrinks/"
+      "https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/"
     );
     res = await res.json();
     setDataLoaded(true);
@@ -37,7 +37,7 @@ export default function AllDrinks({ navigation }) {
     let response;
     try {
       response = await fetch(
-        `https://virtualbartender-842672486.development.catalystserverless.com/server/getSingleDrink?ID=${ROWID}`
+        `https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/${ROWID}`
       );
       const res = await response.json();
       console.log(res);
@@ -79,6 +79,7 @@ export default function AllDrinks({ navigation }) {
           animating={drinkLoading ? true : false}
           size={"large"}
         />
+        <Text>Sorting by: Name</Text>
         {drinkData.length ? (
           <FlatList
             data={drinkData}

@@ -25,7 +25,7 @@ export default function HomePage({ navigation, route }) {
   const randomDrink = () => {
     setApiResponse(true);
     fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/HomePage/random"
+      "https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/random"
     )
       .then((res) => res.json())
       .then((responseJSON) => {

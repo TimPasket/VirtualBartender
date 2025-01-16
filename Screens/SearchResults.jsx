@@ -18,7 +18,7 @@ export default function SearchResults({ navigation, route }) {
   const searchByDrink = async () => {
     let res;
     res = await fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/HomePage/searchDrink?searchQuery=" +
+      "https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/search?searchQuery=" +
         route.params.searchQuery +
         "&toggleValue=false"
     );
@@ -30,7 +30,7 @@ export default function SearchResults({ navigation, route }) {
   const searchByIngredient = async () => {
     let res;
     res = await fetch(
-      "https://virtualbartender-842672486.development.catalystserverless.com/server/HomePage/searchDrink?searchQuery=" +
+      "https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/search?searchQuery=" +
         route.params.searchQuery +
         "&toggleValue=true"
     );
@@ -51,7 +51,7 @@ export default function SearchResults({ navigation, route }) {
     let response;
     try {
       response = await fetch(
-        `https://virtualbartender-842672486.development.catalystserverless.com/server/getSingleDrink?ID=${ROWID}`
+        `https://virtualbartenderapi-10072083063.development.catalystappsail.com/drinks/${ROWID}`
       );
       const res = await response.json();
       console.log(res);
