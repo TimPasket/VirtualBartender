@@ -18,7 +18,7 @@ def allDrinks():
   allDrinks = search.execute_query('SELECT ROWID,drinkID, picSrc, name,instructions FROM drinks ORDER BY '+ordering+' ASC')
   if len(allDrinks) > 0:
     response = make_response(jsonify({
-        'status': 'success',
+        'status': 'Success',
         'count': len(allDrinks),
         'data': allDrinks
     }), 200)

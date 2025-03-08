@@ -79,7 +79,6 @@ export default function AllDrinks({ navigation }) {
           animating={drinkLoading ? true : false}
           size={"large"}
         />
-        <Text>Sorting by: Name</Text>
         {drinkData.length ? (
           <FlatList
             data={drinkData}

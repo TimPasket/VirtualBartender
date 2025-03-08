@@ -73,7 +73,7 @@ export default function App() {
           component={AllDrinks}
           options={{ title: "All Drinks", headerShown: false }}
         />
-        <Tab.Screen name="Profile" component={Profile} />
+        {/* <Tab.Screen name="Profile" component={Profile} /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );
